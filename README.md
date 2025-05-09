@@ -9,13 +9,15 @@ Program ini dibuat untuk mensimulasikan cara kerja cache pada sistem multi-threa
 
 ### Tanpa Koherensi
 
-![alt text](tanpa_koherensi.png)
+![tanpa_koherensi](https://github.com/user-attachments/assets/d1b7f12c-53a6-4895-8c86-0008e9281e39)
+
 
 Pada skenario tanpa koherensi, masing-masing thread membaca dan menulis langsung ke shared memory. Karena tidak ada salinan lokal di cache, setiap operasi baca dan tulis dilakukan secara langsung ke memori utama. Hal ini memang terlihat sederhana, namun berisiko tinggi terjadi data race, yaitu kondisi di mana beberapa thread membaca dan menulis ke data yang sama secara bersamaan, sehingga menyebabkan hasil yang tidak konsisten atau sulit diprediksi. Dalam simulasi ini, meskipun hasil akhirnya tetap x = 3, proses menuju nilai tersebut menunjukkan bahwa kedua thread secara bersamaan bisa menulis nilai yang sama ke shared memory setelah membaca nilai lama, yang dapat menyebabkan pemborosan siklus eksekusi atau bahkan inkonsistensi dalam skenario yang lebih kompleks.
 
 ### Dengan Koherensi
 
-![alt text](dengan_koherensi-1.png)
+![dengan_koherensi](https://github.com/user-attachments/assets/85c56ff8-ef4e-4dd6-b036-df1875e82873)
+
 
 Pada skenario dengan koherensi, setiap thread memiliki cache lokal yang menyimpan salinan nilai x dari memori utama. Sebelum menulis ulang nilai ke shared memory, nilai tersebut terlebih dahulu dimodifikasi di cache lokal. Mekanisme ini menggambarkan bagaimana protokol koherensi bekerja: setiap CPU menyinkronkan cache lokalnya dengan memori utama agar data tetap konsisten. Meskipun hasil akhir simulasi juga menunjukkan nilai x = 3, namun prosesnya jauh lebih tertata dan mencerminkan bagaimana sistem cache sesungguhnya bekerja di prosesor multi-core saat ini. Koherensi membuat sistem lebih efisien dalam pembacaan data karena tidak harus selalu mengakses memori utama, dan memastikan bahwa perubahan data pada satu cache bisa diketahui oleh cache lain.
 
